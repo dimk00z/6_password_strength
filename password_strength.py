@@ -5,16 +5,13 @@ from getpass import getpass
 REGULAR_EXPRESSIONS = [
     {'expression': r'\d',
      'message': 'The password must have a numbers!',
-     'rate': 1,
-     'date_search': False},
+     'rate': 1},
     {'expression': r'[A-Z]',
      'message': 'The password must have a large letters!',
-     'rate': 2,
-     'date_search': False},
+     'rate': 2},
     {'expression': r'[a-z]',
      'message': 'The password must have a small letters!',
-     'rate': 1,
-     'date_search': False},
+     'rate': 1},
     {'expression': r'\d\d.\d\d.\d\d\d\d',
      'message': 'The password should not look like a date',
      'rate': 0,
@@ -22,12 +19,10 @@ REGULAR_EXPRESSIONS = [
     {'expression': r'[$*#!@^%_?]',
      'message': 'The password must have a special characters,\
 such as @, #, $!',
-     'rate': 3,
-     'date_search': False},
+     'rate': 3},
     {'expression': r'.{8}',
      'message': 'The length should be longer than 8 characters',
-     'rate': 3,
-     'date_search': False},
+     'rate': 3},
 ]
 
 
@@ -46,7 +41,7 @@ def check_password_in_blacklist(password, black_list):
 
 
 def get_password_strength(user_password, regular_expression):
-    if not regular_expression['date_search']:
+    if 'date_search' not in regular_expression:
         if not re.search(regular_expression['expression'], user_password):
             return 0, regular_expression['message']
         else:
